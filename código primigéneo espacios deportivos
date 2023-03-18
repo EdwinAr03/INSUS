@@ -1,0 +1,26 @@
+java
+Copy code
+import java.sql.*;
+
+public class ConexionBD {
+    private static final String URL = "jdbc:mysql://localhost:3306/nombre_de_la_bd";
+    private static final String USER = "usuario";
+    private static final String PASSWORD = "contraseña";
+    private static Connection connection = null;
+
+    public static Connection getConnection() {
+        if (connection == null) {
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                connection = DriverManager.getConnection(URL, USER, PASSWORD);
+            } catch (ClassNotFoundException e) {
+                System.out.println("Error al cargar el driver de la base de datos");
+                e.printStackTrace();
+            } catch (SQLException e) {
+                System.out.println("Error al conectar con la base de datos");
+                e.printStackTrace();
+            }
+        }
+        return connection;
+    }
+}
